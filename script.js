@@ -47,11 +47,15 @@ function enableCam(event) {
         };
 
         btnBack.addEventListener('click', () => {
-            constraints.facingMode = 'environment';
+            
+            console.log(constraints.video.facingMode);
+            constraints.video = {facingMode: 'environment'};
           });
         
           btnFront.addEventListener('click', () => {
-            constraints.facingMode = 'user';
+
+            console.log(constraints.video.facingMode);
+            constraints.video = {facingMode: 'environment'};
           });
   
     // Activate the webcam stream.
@@ -73,6 +77,8 @@ cocoSsd.load().then(function (loadedModel) {
   model = loadedModel;
   // Show demo section now model is ready to use.
   demosSection.classList.remove('invisible');
+  btnBack.classList.remove('invisible');
+  btnFront.classList.remove('invisible');
 });
 
 var children = [];
