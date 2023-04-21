@@ -3,7 +3,17 @@ const liveView = document.getElementById('liveView');
 const demosSection = document.getElementById('demos');
 const enableWebcamButton = document.getElementById('webcamButton');
 
+
+const btnFront = document.querySelector('#btn-front');
+  const btnBack = document.querySelector('#btn-back');
 // Check if webcam access is supported.
+
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports['facingMode']) {
+  alert('Browser Not supported!');
+  return;
+};
+
 function getUserMediaSupported() {
     return !!(navigator.mediaDevices &&
       navigator.mediaDevices.getUserMedia);
@@ -29,9 +39,20 @@ function enableCam(event) {
     event.target.classList.add('removed');  
     
     // getUsermedia parameters to force video but not audio.
-    const constraints = {
-      video: true
-    };
+        const constraints = {
+          audio: false,
+          video: {
+            facingMode,
+          },
+        };
+
+        btnBack.addEventListener('click', () => {
+            constraints.facingMode = 'environment';
+          });
+        
+          btnFront.addEventListener('click', () => {
+            constraints.facingMode = 'user';
+          });
   
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
