@@ -4,8 +4,7 @@ const demosSection = document.getElementById('demos');
 const enableWebcamButton = document.getElementById('webcamButton');
 
 
-const btnFront = document.querySelector('#btn-front');
-  const btnBack = document.querySelector('#btn-back');
+
 // Check if webcam access is supported.
 
 const supports = navigator.mediaDevices.getSupportedConstraints();
@@ -42,22 +41,9 @@ function enableCam(event) {
         const constraints = {
           audio: false,
           video: {
-            facingMode,
+            facingMode : 'environment',
           },
-        };
-
-        btnBack.addEventListener('click', () => {
-            
-            console.log(constraints.video.facingMode);
-            constraints.video = {facingMode: 'environment'};
-          });
-        
-          btnFront.addEventListener('click', () => {
-
-            console.log(constraints.video.facingMode);
-            constraints.video = {facingMode: 'environment'};
-          });
-  
+        }; 
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
       video.srcObject = stream;
@@ -77,8 +63,6 @@ cocoSsd.load().then(function (loadedModel) {
   model = loadedModel;
   // Show demo section now model is ready to use.
   demosSection.classList.remove('invisible');
-  btnBack.classList.remove('invisible');
-  btnFront.classList.remove('invisible');
 });
 
 var children = [];
